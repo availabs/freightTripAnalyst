@@ -20,6 +20,9 @@ module.exports = {
   // models: {
   //   connection: 'someMysqlServer'
   // },
+  grunt:{
+    _hookTimeout:90000
+  }
 
   /***************************************************************************
    * Set the port in the production environment to 80                        *
