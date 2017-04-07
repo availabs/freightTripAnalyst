@@ -37,7 +37,7 @@ var Header = React.createClass({
 
         return {
             type:'fips',
-            metroFips:'104',
+            metroFips:'10580',
             year:'2013',
             geo:{type:'FeatureCollection',features:[]},
             data:[],
@@ -95,6 +95,7 @@ var Header = React.createClass({
         d3.json(api+'/details')
         .post(JSON.stringify({"fips":fips,"year":this.state.year}),function(err,response){
             
+           
             var data = scope.processData(response.data);
             console.log('details data',response.data)
             scope.colorMap(data)
@@ -116,9 +117,12 @@ var Header = React.createClass({
 
         var fips  = {"type": "metro", "code": fipsCode},
             naics = ['23','31','32','33','42','44','45','48','72'];
+        console.log('url:', api+'/details')
+        console.log('post:', JSON.stringify({'fips':fips, 'year':this.state.year, 'naics':naics}))
           
         d3.json(api+'/details')
         .post(JSON.stringify({'fips':fips, 'year':this.state.year, 'naics':naics}),function(err,response){
+            console.log('get year data',response)
             var data = scope.processData(response.data);
             scope.getGeography(fips,Object.keys(response.data),function(zips){
             
@@ -138,6 +142,7 @@ var Header = React.createClass({
 
     colorMap(data){
         var toViz = this.state.type;
+        console.log('test', data)
         var rawData = Object.keys(data)
             .map(zip => data[zip][toViz])
             .filter(d => d >= 0)
@@ -231,7 +236,7 @@ var Header = React.createClass({
     processData:function(data){
         var scope  = this,
             circleArray = []
-
+        console.log('processData', data)
         circleArray = Object.keys(data).map(function(zipkey){
             return Object.keys(data[zipkey]).map(function(naicsKey){
                 return Object.keys(data[zipkey][naicsKey]).map(function(sizeKey){
