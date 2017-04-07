@@ -21,7 +21,7 @@ module.exports = {
   //   connection: 'someMysqlServer'
   // },
   grunt:{
-    _hookTimeout:90000
+    _hookTimeout:900000
   }
 
   /***************************************************************************
